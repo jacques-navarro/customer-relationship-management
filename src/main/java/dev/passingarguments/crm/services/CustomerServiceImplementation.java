@@ -1,4 +1,4 @@
-package services;
+package dev.passingarguments.crm.services;
 
 import dev.passingarguments.crm.entities.Customer;
 import jakarta.persistence.EntityManager;
