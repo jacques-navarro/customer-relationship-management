@@ -30,4 +30,9 @@ public class CustomerServiceImplementation implements CustomerService {
         TypedQuery<Customer> query = entityManager.createQuery("FROM Customer", Customer.class);
         return query.getResultList();
     }
+
+    @Override
+    public Customer findById(Long id) {
+        return entityManager.find(Customer.class, id);
+    }
 }
