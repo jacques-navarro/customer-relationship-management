@@ -5,9 +5,7 @@ import dev.passingarguments.crm.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +37,12 @@ public class CustomerController {
         List<Customer> customers = customerService.findAll();
         model.addAttribute("customers", customers);
         return "display_customers";
+    }
+
+    @DeleteMapping("/customers/delete/{id}")
+    public String deleteCustomer(@PathVariable("id") Long id) {
+        Customer customer = customerService.findById(id);
+        customerService.delete(customer);
+        return "redirect:/customers/display_customers";
     }
 }

@@ -35,4 +35,10 @@ public class CustomerServiceImplementation implements CustomerService {
     public Customer findById(Long id) {
         return entityManager.find(Customer.class, id);
     }
+
+    @Override
+    @Transactional
+    public void delete(Customer customer) {
+        entityManager.remove(customer);
+    }
 }
