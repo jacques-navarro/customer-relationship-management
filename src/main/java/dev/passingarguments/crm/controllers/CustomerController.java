@@ -28,7 +28,12 @@ public class CustomerController {
 
     @PostMapping("/customers/add_customer")
     public String addCustomer(@ModelAttribute("customer") Customer customer) {
-        customerService.addCustomer(customer);
+        if (customer.getId() == null) {
+            customerService.addCustomer(customer);
+        } else {
+            customerService.update(customer);
+            return "redirect:display_customers";
+        }
         return "redirect:display_add_customer_form";
     }
 
@@ -44,5 +49,12 @@ public class CustomerController {
         Customer customer = customerService.findById(id);
         customerService.delete(customer);
         return "redirect:/customers/display_customers";
+    }
+
+    @PatchMapping("/customers/update/{id}")
+    public String updateCustomer(@PathVariable("id") Long id, Model model) {
+        Customer customer = customerService.findById(id);
+        model.addAttribute("customer", customer);
+        return "add_customer_form";
     }
 }

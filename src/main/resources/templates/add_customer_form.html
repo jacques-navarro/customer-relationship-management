@@ -12,6 +12,7 @@
 <a th:href="@{/customers/display_customers}">Customers List</a>
 <div>
     <form action="#" th:action="@{/customers/add_customer}" th:object="${customer}" method="POST">
+        <input type="hidden" th:field="*{id}">
         <input type="text" th:field="*{customerName}" placeholder="Customer Name">
         <input type="text" th:field="*{email}" placeHolder="Email">
         <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number">

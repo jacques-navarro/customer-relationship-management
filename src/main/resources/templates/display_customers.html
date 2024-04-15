@@ -39,6 +39,9 @@
                 <td><span th:text="${customer.address.postalCode}"/></td>
                 <td>
                     <div>
+                        <form action="#" th:action="@{/customers/update/{id}(id=${customer.id})}" th:method="PATCH">
+                            <button type="submit">Update</button>
+                        </form>
                         <form action="#" th:action="@{/customers/delete/{id}(id=${customer.id})}" th:method="DELETE">
                             <button type="submit">Delete</button>
                         </form>

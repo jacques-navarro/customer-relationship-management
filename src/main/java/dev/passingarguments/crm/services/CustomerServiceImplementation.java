@@ -41,4 +41,10 @@ public class CustomerServiceImplementation implements CustomerService {
     public void delete(Customer customer) {
         entityManager.remove(customer);
     }
+
+    @Override
+    @Transactional
+    public void update(Customer customer) {
+        entityManager.merge(customer);
+    }
 }
