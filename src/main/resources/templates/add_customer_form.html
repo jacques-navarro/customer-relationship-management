@@ -9,6 +9,7 @@
 <body>
 <h1>Customers</h1>
 <h2>Add Customer</h2>
+<a th:href="@{/customers/display_customers}">Customers List</a>
 <div>
     <form action="#" th:action="@{/customers/add_customer}" th:object="${customer}" method="POST">
         <input type="text" th:field="*{customerName}" placeholder="Customer Name">
