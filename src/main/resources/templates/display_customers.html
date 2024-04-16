@@ -25,6 +25,7 @@
                 <th scope="col">Street Name</th>
                 <th scope="col">Street Number</th>
                 <th scope="col">Postal Code</th>
+                <th scope="col">Sales</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -38,6 +39,9 @@
                 <td><span th:text="${customer.address.streetNumber}"/></td>
                 <td><span th:text="${customer.address.postalCode}"/></td>
                 <td>
+                    <form action="#" th:action="@{/sales/{id}(id=${customer.id})}" th:method="GET">
+                        <button type="submit">Sales</button>
+                    </form>
                 </td>
                 <td>
                     <div>
