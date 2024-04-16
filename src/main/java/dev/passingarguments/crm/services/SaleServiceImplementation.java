@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,5 +26,11 @@ public class SaleServiceImplementation implements SaleService {
     public List<Sale> findAll() {
         TypedQuery<Sale> query = entityManager.createQuery("FROM Sale", Sale.class);
         return query.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void save(Sale sale) {
+        entityManager.persist(sale);
     }
 }

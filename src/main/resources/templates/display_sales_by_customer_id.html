@@ -10,6 +10,10 @@
 <div>
     <h1>Sales By Customer</h1>
     <div>
+        <a th:href="@{/customers/display_customers}">Customers List</a>
+        <a th:href="@{/sales/add/{customerId}(customerId=${customerId})}">Add Sale</a>
+    </div>
+    <div>
         <table>
             <thead>
             <tr>
