@@ -47,6 +47,7 @@ public class SaleController {
         Customer customer = customerService.findById(customerId);
         sale.setCustomer(customer);
         model.addAttribute("sale", sale);
+        model.addAttribute("customerId", customerId);
         return "add_sale_form";
     }
 

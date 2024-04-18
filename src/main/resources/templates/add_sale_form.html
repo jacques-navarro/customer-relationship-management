@@ -11,6 +11,7 @@
 <body>
 <div>
     <h1>Add Sale</h1>
+    <a th:href="@{/sales/{customerId}(customerId=${customerId})}">Customer Sales</a>
     <div>
         <form action="#" th:action="@{/sales}" th:object="${sale}" method="POST">
             <input type="hidden" th:field="*{id}">
