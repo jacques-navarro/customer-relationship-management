@@ -13,4 +13,6 @@ public interface SaleService {
     Sale findById(Long id);
 
     void update(Sale sale);
+
+    void delete(Sale sale);
 }

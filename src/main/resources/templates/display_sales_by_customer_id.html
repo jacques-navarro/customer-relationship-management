@@ -37,6 +37,9 @@
                         <form action="#" th:action="@{/sales/update/{id}(id=${sale.id})}" th:method="PATCH">
                             <button type="submit">Update</button>
                         </form>
+                        <form action="#" th:action="@{/sales/delete/{id}(id=${sale.id})}" th:method="DELETE">
+                            <button type="submit">Delete</button>
+                        </form>
                     </div>
                 </td>
             </tr>

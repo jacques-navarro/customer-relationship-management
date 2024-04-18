@@ -71,4 +71,12 @@ public class SaleController {
         model.addAttribute("sale", sale);
         return "add_sale_form";
     }
+
+    @DeleteMapping("/sales/delete/{id}")
+    public String deleteSale(@PathVariable("id") Long id) {
+        Sale sale = saleService.findById(id);
+        Long customerId = sale.getCustomer().getId();
+        saleService.delete(sale);
+        return "redirect:/sales/" + customerId;
+    }
 }

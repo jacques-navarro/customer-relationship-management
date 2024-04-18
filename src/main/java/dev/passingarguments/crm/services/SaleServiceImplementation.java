@@ -44,4 +44,10 @@ public class SaleServiceImplementation implements SaleService {
     public void update(Sale sale) {
         entityManager.merge(sale);
     }
+
+    @Override
+    @Transactional
+    public void delete(Sale sale) {
+        entityManager.remove(sale);
+    }
 }
