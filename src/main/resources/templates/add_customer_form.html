@@ -5,23 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Customers | Add</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<h1>Customers</h1>
-<h2>Add Customer</h2>
-<a th:href="@{/customers/display_customers}">Customers List</a>
-<div>
-    <form action="#" th:action="@{/customers/add_customer}" th:object="${customer}" method="POST">
-        <input type="hidden" th:field="*{id}">
-        <input type="text" th:field="*{customerName}" placeholder="Customer Name">
-        <input type="text" th:field="*{email}" placeHolder="Email">
-        <input type="text" th:field="*{phoneNumber}" placeholder="Phone Number">
-        <input type="text" th:field="*{address.streetName}" placeholder="Street Name">
-        <input type="text" th:field="*{address.streetNumber}" placeholder="Street Number">
-        <input type="text" th:field="*{address.postalCode}" placeholder="Postal Code">
-        <button type="submit">Add Customer</button>
-    </form>
+<div class="container">
+    <div class="mt-5">
+        <h1>Customers</h1>
+    </div>
+
+    <h2>Add Customer</h2>
+    <div>
+        <a class="btn btn-secondary my-4" th:href="@{/customers/display_customers}">Customers List</a>
+    </div>
+    <div>
+        <form action="#" th:action="@{/customers/add_customer}" th:object="${customer}" method="POST">
+            <input type="hidden" th:field="*{id}">
+            <div class="row g-2 mb-3">
+                <div class="col-4">
+                    <input type="text" class="form-control" th:field="*{customerName}" placeholder="Customer Name">
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" th:field="*{email}" placeHolder="Email">
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" th:field="*{phoneNumber}" placeholder="Phone Number">
+                </div>
+            </div>
+            <div class="row g-2 mb-3">
+                <div class="col-4">
+                    <input type="text" class="form-control" th:field="*{address.streetName}" placeholder="Street Name">
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" th:field="*{address.streetNumber}"
+                           placeholder="Street Number">
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" th:field="*{address.postalCode}" placeholder="Postal Code">
+                </div>
+            </div>
+            <div class="float-end">
+                <button type="submit" class="btn btn-secondary">Add Customer</button>
+            </div>
+
+        </form>
+    </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>
