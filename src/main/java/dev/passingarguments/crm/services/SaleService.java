@@ -11,4 +11,6 @@ public interface SaleService {
     void save(Sale sale);
 
     Sale findById(Long id);
+
+    void update(Sale sale);
 }

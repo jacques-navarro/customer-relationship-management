@@ -38,4 +38,10 @@ public class SaleServiceImplementation implements SaleService {
     public Sale findById(Long id) {
         return entityManager.find(Sale.class, id);
     }
+
+    @Override
+    @Transactional
+    public void update(Sale sale) {
+        entityManager.merge(sale);
+    }
 }

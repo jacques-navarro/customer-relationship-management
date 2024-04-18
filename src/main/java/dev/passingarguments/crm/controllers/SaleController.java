@@ -8,10 +8,7 @@ import dev.passingarguments.crm.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,7 +53,21 @@ public class SaleController {
     @PostMapping("/sales")
     public String addSale(@ModelAttribute Sale sale) {
         Long customerId = sale.getCustomer().getId();
-        saleService.save(sale);
-        return "redirect:/sales/" + customerId;
+
+        if (sale.getId() == null) {
+            saleService.save(sale);
+        } else {
+            saleService.update(sale);
+            return "redirect:/sales/" + customerId;
+        }
+
+        return "redirect:/sales/add/" + customerId;
+    }
+
+    @PatchMapping("/sales/update/{id}")
+    public String updateSale(@PathVariable("id") Long id, Model model) {
+        Sale sale = saleService.findById(id);
+        model.addAttribute("sale", sale);
+        return "add_sale_form";
     }
 }
