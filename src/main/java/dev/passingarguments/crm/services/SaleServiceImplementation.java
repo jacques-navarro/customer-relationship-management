@@ -33,4 +33,9 @@ public class SaleServiceImplementation implements SaleService {
     public void save(Sale sale) {
         entityManager.persist(sale);
     }
+
+    @Override
+    public Sale findById(Long id) {
+        return entityManager.find(Sale.class, id);
+    }
 }

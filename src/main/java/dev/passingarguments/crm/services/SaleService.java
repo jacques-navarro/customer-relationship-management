@@ -9,4 +9,6 @@ public interface SaleService {
     List<Sale> findAll();
 
     void save(Sale sale);
+
+    Sale findById(Long id);
 }
