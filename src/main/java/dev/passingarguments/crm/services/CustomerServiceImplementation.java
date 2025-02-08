@@ -1,8 +1,7 @@
 package dev.passingarguments.crm.services;
 
 import dev.passingarguments.crm.entities.Customer;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
+import dev.passingarguments.crm.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,39 +11,39 @@ import java.util.List;
 @Service
 public class CustomerServiceImplementation implements CustomerService {
 
-    private EntityManager entityManager;
+    private CustomerRepository customerRepository;
 
     @Autowired
-    public CustomerServiceImplementation(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public CustomerServiceImplementation(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     @Override
     @Transactional
     public void addCustomer(Customer customer) {
-        entityManager.persist(customer);
+        customerRepository.save(customer);
     }
 
     @Override
     public List<Customer> findAll() {
-        TypedQuery<Customer> query = entityManager.createQuery("FROM Customer", Customer.class);
-        return query.getResultList();
+        return (List<Customer>) customerRepository.findAll();
+
     }
 
     @Override
     public Customer findById(Long id) {
-        return entityManager.find(Customer.class, id);
+        return customerRepository.findById(id).orElseThrow();
     }
 
     @Override
     @Transactional
     public void delete(Customer customer) {
-        entityManager.remove(customer);
+        customerRepository.delete(customer);
     }
 
     @Override
     @Transactional
     public void update(Customer customer) {
-        entityManager.merge(customer);
+        customerRepository.save(customer);
     }
 }
