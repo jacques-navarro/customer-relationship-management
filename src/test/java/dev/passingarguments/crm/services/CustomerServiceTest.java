@@ -15,8 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
@@ -122,6 +121,43 @@ public class CustomerServiceTest {
         Mockito.verify(customerRepositoryMock, times(1)
                         .description("findById() should be called once"))
                 .findById(anyLong());
+    }
+
+    @Test
+    void testUpdate_whenCustomerProvided_returnUpdatedCustomer() {
+        // Arrange
+        String name = "updatedName";
+        String email = "updatedEmail";
+        String phoneNumber = "updatedPhoneNumber";
+        String streetName = "updatedStreetName";
+        String streetNumber = "updatedStreetNumber";
+        int postalCode = 99;
+
+        customer.setCustomerName(name);
+        customer.setEmail(email);
+        customer.setPhoneNumber(phoneNumber);
+        customer.getAddress().setStreetName(streetName);
+        customer.getAddress().setStreetNumber(streetNumber);
+        customer.getAddress().setPostalCode(postalCode);
+
+        // Act
+        customerService.update(customer);
+
+        // Assert
+        assertNotNull(customer);
+        assertEquals(name, customer.getCustomerName(), "updated name is incorrect");
+        assertEquals(email, customer.getEmail(), "updated email is incorrect");
+        assertEquals(phoneNumber, customer.getPhoneNumber(), "updated phone number is incorrect");
+
+        assertNotNull(customer.getAddress());
+        assertEquals(streetName, customer.getAddress().getStreetName(), "updated street name is incorrect");
+        assertEquals(streetNumber, customer.getAddress().getStreetNumber(), "updated street number is incorrect");
+        assertEquals(postalCode, customer.getAddress().getPostalCode(), "updated postal code is incorrect");
+
+        // Verify
+        Mockito.verify(customerRepositoryMock, times(1)
+                .description("save method should only be called once"))
+                .save(any(Customer.class));
     }
 
 }
