@@ -21,8 +21,15 @@ public class CustomerServiceImplementation implements CustomerService {
     @Override
     @Transactional
     public Customer addCustomer(Customer customer) {
+        Customer createdCustomer = null;
 
-        return customerRepository.save(customer);
+        try {
+            createdCustomer = customerRepository.save(customer);
+        } catch (RuntimeException e) {
+            throw new CustomerServiceException(e.getMessage());
+        }
+
+        return createdCustomer;
     }
 
     @Override

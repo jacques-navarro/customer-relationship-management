@@ -14,8 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
@@ -69,6 +68,23 @@ public class CustomerServiceTest {
         // Verify
         Mockito.verify(customerRepositoryMock, times(1)
                 .description("addCustomer method should only be called once"))
+                .save(any(Customer.class));
+    }
+
+    @DisplayName("if addCustomer() method throws exception, a UserServiceException is thrown")
+    @Test
+    void testAddCustomer_whenAddMethodThrowsException_thenThrowUserServiceException() {
+        // Arrange
+        Mockito.when(customerRepositoryMock.save(any(Customer.class))).thenThrow(RuntimeException.class);
+
+        // Act & Assert
+        assertThrows(CustomerServiceException.class, () -> {
+            customerService.addCustomer(customer);
+        }, "should have thrown UserServiceException");
+
+        // Verify
+        Mockito.verify(customerRepositoryMock, times(1)
+                .description("addCustomer method should have only been called once"))
                 .save(any(Customer.class));
     }
 
