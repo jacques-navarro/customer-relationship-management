@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.times;
 
@@ -35,6 +36,40 @@ public class CustomerServiceTest {
     void init() {
         address = new Address("sn1", "sn1", 11);
         customer = new Customer("sn1", "em1", "pn1", address);
+    }
+
+    @DisplayName("Add user")
+    @Test
+    void testAddCustomer_whenCorrectCredentialsProvided_createCustomerAccount() {
+        // Arrange
+        Mockito.when(customerRepositoryMock
+                        .save(any(Customer.class)))
+                .thenReturn(customer);
+
+        // Act
+        Customer savedCustomer = customerService.addCustomer(customer);
+
+        // Assert
+        assertNotNull(savedCustomer, "saved customer should not be null");
+        assertEquals(savedCustomer.getCustomerName(), customer.getCustomerName(),
+                "saved customer with incorrect name");
+        assertEquals(savedCustomer.getEmail(), customer.getEmail(),
+                "saved customer with incorrect email");
+        assertEquals(savedCustomer.getPhoneNumber(), customer.getPhoneNumber(),
+                "saved customer with incorrect phone number");
+
+        assertNotNull(savedCustomer.getAddress(), "saved address should not be null");
+        assertEquals(savedCustomer.getAddress().getStreetName(), customer.getAddress().getStreetName(),
+                "saved address with incorrect street name");
+        assertEquals(savedCustomer.getAddress().getStreetNumber(), customer.getAddress().getStreetNumber(),
+                "saved address with incorrect street number");
+        assertEquals(savedCustomer.getAddress().getPostalCode(), customer.getAddress().getPostalCode(),
+                "saved address with incorrect postal code");
+
+        // Verify
+        Mockito.verify(customerRepositoryMock, times(1)
+                .description("addCustomer method should only be called once"))
+                .save(any(Customer.class));
     }
 
     @DisplayName("Find user by Id")
