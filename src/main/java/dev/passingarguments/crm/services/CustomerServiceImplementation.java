@@ -20,8 +20,9 @@ public class CustomerServiceImplementation implements CustomerService {
 
     @Override
     @Transactional
-    public void addCustomer(Customer customer) {
-        customerRepository.save(customer);
+    public Customer addCustomer(Customer customer) {
+
+        return customerRepository.save(customer);
     }
 
     @Override
