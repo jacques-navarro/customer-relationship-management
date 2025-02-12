@@ -46,8 +46,7 @@ public class CustomerController {
 
     @DeleteMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable("id") Long id) {
-        Customer customer = customerService.findById(id);
-        customerService.delete(customer);
+        customerService.deleteById(id);
         return "redirect:/customers/display_customers";
     }
 

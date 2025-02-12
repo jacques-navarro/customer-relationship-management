@@ -45,8 +45,16 @@ public class CustomerServiceImplementation implements CustomerService {
 
     @Override
     @Transactional
-    public boolean delete(Customer customer) {
-        customerRepository.delete(customer);
+    public boolean deleteById(long id) {
+        Customer customer = customerRepository
+                .findById(id)
+                .orElseThrow(() -> new CustomerServiceException("customer not found"));
+
+        if (customer != null) {
+            customerRepository.deleteById(id);
+            return true;
+        }
+
         return false;
     }
 
