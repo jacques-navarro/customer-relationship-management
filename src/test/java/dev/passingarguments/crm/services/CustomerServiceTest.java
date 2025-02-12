@@ -15,7 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,7 +68,7 @@ public class CustomerServiceTest {
 
         // Verify
         Mockito.verify(customerRepositoryMock, times(1)
-                .description("addCustomer method should only be called once"))
+                        .description("addCustomer method should only be called once"))
                 .save(any(Customer.class));
     }
 
@@ -83,7 +85,7 @@ public class CustomerServiceTest {
 
         // Verify
         Mockito.verify(customerRepositoryMock, times(1)
-                .description("addCustomer method should have only been called once"))
+                        .description("addCustomer method should have only been called once"))
                 .save(any(Customer.class));
     }
 
@@ -156,8 +158,28 @@ public class CustomerServiceTest {
 
         // Verify
         Mockito.verify(customerRepositoryMock, times(1)
-                .description("save method should only be called once"))
+                        .description("save method should only be called once"))
                 .save(any(Customer.class));
+    }
+
+    @DisplayName("Delete user by id")
+    @Test
+    void testDelete_whenEmployeeIsValid_thenDeleteEmployee() {
+        // Arrange
+        // checks if customer exists, throws CustomerServiceException if not included
+        Mockito.when(customerRepositoryMock.findById(anyLong())).thenReturn(Optional.of(customer));
+        doNothing().when(customerRepositoryMock).deleteById(anyLong());
+
+        // Act & Assert
+        boolean isDeleted = customerService.deleteById(anyLong());
+
+        // Assert
+        assertTrue(isDeleted, "should return true when customer is deleted");
+
+        // Verify
+        Mockito.verify(customerRepositoryMock, times(1)
+                        .description("delete method should only be called once"))
+                .deleteById(anyLong());
     }
 
 }
