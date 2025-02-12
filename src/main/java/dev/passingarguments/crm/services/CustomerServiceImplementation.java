@@ -45,8 +45,9 @@ public class CustomerServiceImplementation implements CustomerService {
 
     @Override
     @Transactional
-    public void delete(Customer customer) {
+    public boolean delete(Customer customer) {
         customerRepository.delete(customer);
+        return false;
     }
 
     @Override
