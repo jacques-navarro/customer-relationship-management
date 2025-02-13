@@ -182,4 +182,21 @@ public class CustomerServiceTest {
                 .deleteById(anyLong());
     }
 
+    @DisplayName("Delete user by id - not found")
+    @Test
+    void testDelete_whenEmployeeIsNotFound_thenThrowUserServiceException() {
+        // Arrange
+        Mockito.when(customerRepositoryMock.findById(anyLong())).thenThrow(RuntimeException.class);
+
+        // Act & assert
+        assertThrows(CustomerServiceException.class, () -> {
+            customerService.deleteById(anyLong());
+        }, "should have thrown CustomerServiceException");
+
+        // Verify
+        Mockito.verify(customerRepositoryMock, times(1)
+                        .description("delete method should only be called once"))
+                .deleteById(anyLong());
+    }
+
 }
